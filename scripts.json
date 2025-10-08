@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve-api": "node server/api.js",
+    "dev": "concurrently \"npm run serve-api\" \"npm start\"",
+    "api-only": "node server/api.js"
+  }
+}
