@@ -1,0 +1,183 @@
+@import './variables';
+
+.results-container {
+  text-align: center;
+  min-height: 600px;
+
+  .results-header {
+    margin-bottom: $spacing-xl;
+
+    .completion-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto $spacing-lg;
+      border-radius: 50%;
+      background: $gradient-secondary;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: $white;
+      font-size: 3rem;
+      box-shadow: $shadow-lg;
+      animation: bounce 0.6s ease-out;
+    }
+
+    h2 {
+      color: $accent-color;
+      font-size: $font-size-xxl;
+      font-weight: 700;
+      margin: 0 0 $spacing-md 0;
+      letter-spacing: -0.5px;
+    }
+
+    .total-score {
+      font-size: $font-size-xl;
+      color: $primary-color;
+      font-weight: 700;
+      background: linear-gradient(135deg, lighten($primary-color, 50%), lighten($primary-color, 45%));
+      padding: $spacing-md $spacing-lg;
+      border-radius: 50px;
+      display: inline-block;
+      border: 2px solid $primary-color;
+      box-shadow: $shadow-md;
+    }
+  }
+
+  .chart-container {
+    margin: $spacing-xl 0;
+    padding: $spacing-lg;
+    background: $white;
+    border-radius: $border-radius-lg;
+    border: 2px solid $medium-gray;
+    box-shadow: $shadow-sm;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+
+    h3 {
+      color: $accent-color;
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-lg;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .chart-wrapper {
+      position: relative;
+      height: 350px;
+      background: $light-gray;
+      border-radius: $border-radius;
+      padding: $spacing-md;
+    }
+  }
+
+  .topic-scores {
+    margin: $spacing-xl 0;
+    text-align: left;
+
+    h3 {
+      color: $accent-color;
+      font-size: $font-size-lg;
+      margin-bottom: $spacing-lg;
+      font-weight: 700;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .topic-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: $spacing-md $spacing-lg;
+      margin-bottom: $spacing-sm;
+      background: $white;
+      border-radius: $border-radius;
+      border-left: 6px solid $primary-color;
+      box-shadow: $shadow-sm;
+      border: 1px solid $medium-gray;
+      transition: all $transition-normal;
+
+      &:hover {
+        transform: translateX(5px);
+        box-shadow: $shadow-md;
+      }
+
+      .topic-name {
+        font-weight: 600;
+        color: $text-dark;
+        font-size: $font-size-base;
+      }
+
+      .topic-score {
+        font-weight: 700;
+        color: $white;
+        background: $gradient-primary;
+        padding: $spacing-xs $spacing-md;
+        border-radius: 50px;
+        font-size: $font-size-sm;
+        min-width: 60px;
+        text-align: center;
+        box-shadow: $shadow-sm;
+      }
+    }
+  }
+
+  .results-actions {
+    margin-top: $spacing-xl;
+    display: flex;
+    gap: $spacing-lg;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    .action-button {
+      padding: $spacing-md $spacing-xl;
+      border: none;
+      border-radius: $border-radius;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all $transition-normal;
+      font-size: $font-size-base;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      min-width: 160px;
+
+      &.btn-restart {
+        background: $gradient-primary;
+        color: $white;
+        box-shadow: $shadow-md;
+
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: $shadow-lg;
+        }
+      }
+
+      &.btn-share {
+        background: $white;
+        color: $secondary-color;
+        border: 2px solid $secondary-color;
+
+        &:hover {
+          background: $secondary-color;
+          color: $white;
+          transform: translateY(-3px);
+          box-shadow: $shadow-md;
+        }
+      }
+    }
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+}

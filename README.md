@@ -1,331 +1,46 @@
-# Sitecore Quiz Application
-
-A React TypeScript application with SCSS styling that connects to Sitecore using GraphQL queries. This application provides an API layer to interact with Sitecore's GraphQL endpoint and a modern React frontend to display and interact with Sitecore content.
-
-## Features
-
-- **React 18** with TypeScript for type-safe development
-- **SCSS** for advanced styling with variables and mixins
-- **Express API Server** that proxies requests to Sitecore GraphQL
-- **Sitecore GraphQL Integration** for fetching items and their fields
-- **Component-based Architecture** for displaying Sitecore content
-- **Modern Development Tools** with hot reloading and error handling
-
-## Project Structure
-
-```
-sitecore-quiz/
-├── public/                  # Static assets
-├── src/
-│   ├── components/         # React components
-│   │   ├── SitecoreItemDisplay.tsx
-│   │   ├── SitecoreItemDisplay.scss
-│   │   └── index.ts
-│   ├── services/          # API services
-│   │   ├── sitecoreService.ts
-│   │   └── index.ts
-│   ├── styles/            # SCSS stylesheets
-│   │   ├── _variables.scss
-│   │   ├── index.scss
-│   │   └── App.scss
-│   ├── types/             # TypeScript type definitions
-│   │   ├── sitecore.ts
-│   │   └── index.ts
-│   ├── App.tsx
-│   └── index.tsx
-├── server/                # Express API server
-│   └── api.js
-├── package.json
-├── tsconfig.json
-└── .env                   # Environment configuration
-```
-
-## Setup Instructions
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn
-- Access to a Sitecore instance with GraphQL enabled
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone <repository-url>
-   cd sitecore-quiz
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Configure environment variables:**
-   
-   Copy `.env.example` to `.env` and update the values:
-   ```bash
-   cp .env.example .env
-   ```
-   
-   Update the following variables in `.env`:
-   ```env
-   # Sitecore Configuration
-   SITECORE_GRAPHQL_ENDPOINT=https://your-sitecore-instance.com/sitecore/api/graph/edge
-   SITECORE_API_KEY=your-api-key-here
-   SITECORE_SITE_NAME=your-site-name
-   SITECORE_LANGUAGE=en
-
-   # React App Configuration  
-   REACT_APP_SITECORE_ENDPOINT=http://localhost:3002/api/sitecore
-   REACT_APP_SITECORE_API_KEY=your-api-key-here
-   REACT_APP_SITECORE_SITE_NAME=your-site-name
-   ```
-
-### Running the Application
-
-The application consists of two servers that need to run simultaneously:
-
-1. **Start the API Server (Terminal 1):**
-   ```bash
-   npm run serve-api
-   ```
-   This starts the Express server on `http://localhost:3002`
-
-2. **Start the React App (Terminal 2):**
-   ```bash
-   npm start
-   ```
-   This starts the React development server on `http://localhost:3001`
-
-### Available Scripts
-
-- `npm start` - Runs the React app in development mode
-- `npm run build` - Builds the React app for production
-- `npm run serve-api` - Starts the Express API server
-- `npm test` - Runs the test suite
-
-## API Endpoints
-
-The Express server provides the following endpoints:
-
-### Health Check
-```
-GET /api/health
-```
-Returns the server status and timestamp.
-
-### Get Sitecore Item
-```
-GET /api/sitecore/item?path=/sitecore/content/Home&includeChildren=true
-```
-Fetches a Sitecore item by path with optional children.
-
-### Get Multiple Items
-```
-POST /api/sitecore/items
-Content-Type: application/json
-
-{
-  "ids": ["item-id-1", "item-id-2"]
-}
-```
-Fetches multiple Sitecore items by their IDs.
-
-### GraphQL Proxy
-```
-POST /api/sitecore
-Content-Type: application/json
-
-{
-  "query": "query GetItem($path: String!) { item(path: $path) { id name } }",
-  "variables": { "path": "/sitecore/content/Home" }
-}
-```
-Proxies GraphQL queries directly to Sitecore.
-
-## Development
-
-### Running Both Servers
-
-To run both the React app and API server simultaneously, you'll need two terminal windows:
-
-**Terminal 1 (API Server):**
-```bash
-cd sitecore-quiz
-npm run serve-api
-```
-
-**Terminal 2 (React App):**
-```bash
-cd sitecore-quiz
-npm start
-```
-
-The React app will be available at `http://localhost:3001` and the API server at `http://localhost:3002`.
-
-## Next Steps
-
-This foundation supports building:
-
-- **Quiz Components** - Interactive quiz interfaces using Sitecore content
-- **Content Management** - CRUD operations for Sitecore items
-- **Authentication** - User login and personalization features
-- **Caching** - Response caching for improved performance
+# Getting Started with Create React App
 
-## Contributing
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+## Available Scripts
 
-- **React 18** with TypeScript support
-- **SCSS** for advanced styling with variables and mixins
-- **Sitecore GraphQL Integration** via a custom API server
-- **Express API Server** to proxy requests to Sitecore
-- **Responsive Design** with modern UI components
-- **Type-safe** Sitecore data models
+In the project directory, you can run:
 
-## Project Structure
+### `npm start`
 
-```
-├── public/                 # Static files
-├── src/
-│   ├── components/        # React components
-│   ├── services/          # API services (Sitecore integration)
-│   ├── styles/           # SCSS stylesheets
-│   ├── types/            # TypeScript type definitions
-│   ├── App.tsx           # Main React component
-│   └── index.tsx         # React entry point
-├── server/
-│   └── api.js            # Express API server for Sitecore GraphQL
-├── package.json          # Dependencies and scripts
-└── tsconfig.json         # TypeScript configuration
-```
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-## Setup Instructions
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-### 1. Install Dependencies
+### `npm test`
 
-```bash
-npm install
-```
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### 2. Environment Configuration
+### `npm run build`
 
-1. Copy the example environment file:
-```bash
-copy .env.example .env
-```
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-2. Edit `.env` and configure your Sitecore settings:
-```env
-# Sitecore Configuration
-SITECORE_GRAPHQL_ENDPOINT=https://your-sitecore-instance.com/sitecore/api/graph/edge
-SITECORE_API_KEY=your-api-key-here
-SITECORE_SITE_NAME=website
-SITECORE_LANGUAGE=en
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-# React App Configuration
-REACT_APP_SITECORE_ENDPOINT=http://localhost:3001/api/sitecore
-REACT_APP_SITECORE_API_KEY=your-api-key-here
-REACT_APP_SITECORE_SITE_NAME=website
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-# Server Configuration
-PORT=3001
-```
+### `npm run eject`
 
-### 3. Running the Application
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-You'll need to run both the React app and the API server:
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-#### Terminal 1 - Start the API Server:
-```bash
-npm run serve-api
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-#### Terminal 2 - Start the React App:
-```bash
-npm start
-```
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-The React app will be available at `http://localhost:3000` and the API server at `http://localhost:3001`.
+## Learn More
 
-## API Endpoints
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-The Express server provides the following endpoints:
-
-- `GET /api/health` - Health check
-- `POST /api/sitecore` - GraphQL proxy to Sitecore
-- `GET /api/sitecore/item?path=/sitecore/content/Home&includeChildren=true` - Get specific item
-- `POST /api/sitecore/items` - Get multiple items by IDs
-
-## Sitecore GraphQL Integration
-
-The application includes a `SitecoreService` class that provides:
-
-- **getItem(path, includeChildren)** - Fetch a single item by path
-- **getItemByIds(itemIds)** - Fetch multiple items by their IDs
-- **getFieldValue(item, fieldName)** - Helper to extract field values
-
-### Example Usage
-
-```typescript
-import { SitecoreService } from './services/sitecoreService';
-
-const service = new SitecoreService();
-
-// Fetch the Home item with children
-const homeItem = await service.getItem('/sitecore/content/Home', true);
-
-// Get a specific field value
-const title = service.getFieldValue(homeItem, 'Title');
-```
-
-## Components
-
-- **SitecoreItemDisplay** - Renders Sitecore items with fields and children
-- Responsive design with SCSS modules
-- Type-safe props and state management
-
-## Styling
-
-The application uses SCSS with:
-- **Variables** for colors, fonts, and spacing
-- **Mixins** for reusable styles
-- **Responsive design** patterns
-- **Component-specific** stylesheets
-
-## Development
-
-### Available Scripts
-
-- `npm start` - Run the React development server
-- `npm run build` - Build for production
-- `npm test` - Run tests
-- `npm run serve-api` - Start the API server
-
-### Adding New Features
-
-1. Create TypeScript interfaces in `src/types/`
-2. Add services in `src/services/`
-3. Create components in `src/components/`
-4. Add styles in `src/styles/`
-
-## Next Steps
-
-This foundation provides:
-- ✅ React TypeScript setup with SCSS
-- ✅ Sitecore GraphQL API integration
-- ✅ Express server for API proxying
-- ✅ Type-safe data models
-- ✅ Responsive UI components
-
-You can now build on this foundation to:
-- Add quiz functionality
-- Create more complex Sitecore queries
-- Add routing and navigation
-- Implement user authentication
-- Add real-time features
+To learn React, check out the [React documentation](https://reactjs.org/).
