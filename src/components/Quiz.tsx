@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QuestionSlide from './QuestionSlide';
 import Results from './Results';
 import { quizQuestions } from '../data/questions';
 import { QuizService } from '../services/QuizService';
-import { Answer, QuizResult } from '../types/quiz';
+import { AdminService } from '../services/AdminService';
+import { Answer, QuizResult, Question } from '../types/quiz';
 import '../styles/Quiz.scss';
 
 const Quiz: React.FC = () => {
@@ -12,9 +13,21 @@ const Quiz: React.FC = () => {
   const [quizService] = useState(() => new QuizService());
   const [isComplete, setIsComplete] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
+  const [questions, setQuestions] = useState<Question[]>([]);
 
-  const currentQuestion = quizQuestions[currentQuestionIndex];
-  const isLastQuestion = currentQuestionIndex === quizQuestions.length - 1;
+  // Load questions on component mount
+  useEffect(() => {
+    const adminService = new AdminService();
+    const adminQuestions = adminService.getQuizQuestions();
+    if (adminQuestions.length > 0) {
+      setQuestions(adminQuestions);
+    } else {
+      setQuestions(quizQuestions); // Fallback to default questions
+    }
+  }, []);
+
+  const currentQuestion = questions[currentQuestionIndex];
+  const isLastQuestion = currentQuestionIndex === questions.length - 1;
   const selectedAnswer = selectedAnswers[currentQuestion?.id] || null;
 
   const handleAnswerSelect = (answer: Answer) => {
@@ -60,7 +73,20 @@ const Quiz: React.FC = () => {
 
   const canGoNext = selectedAnswer !== null;
   const canGoBack = currentQuestionIndex > 0;
-  const progress = ((currentQuestionIndex + 1) / quizQuestions.length) * 100;
+  const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
+
+  // Don't render until questions are loaded
+  if (questions.length === 0) {
+    return (
+      <div className="quiz-container">
+        <div className="quiz-card">
+          <div style={{ textAlign: 'center', padding: '48px' }}>
+            <p>Loading quiz questions...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (isComplete && result) {
     return (
@@ -84,7 +110,7 @@ const Quiz: React.FC = () => {
             ></div>
           </div>
           <div className="progress-text">
-            Question {currentQuestionIndex + 1} of {quizQuestions.length}
+            Question {currentQuestionIndex + 1} of {questions.length}
           </div>
         </div>
 
@@ -99,7 +125,7 @@ const Quiz: React.FC = () => {
             canGoBack={canGoBack}
             canGoNext={canGoNext}
             currentQuestion={currentQuestionIndex + 1}
-            totalQuestions={quizQuestions.length}
+            totalQuestions={questions.length}
           />
         </div>
       </div>

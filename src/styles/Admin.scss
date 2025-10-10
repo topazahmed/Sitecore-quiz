@@ -1,0 +1,299 @@
+@import './variables';
+
+.admin-login {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: $spacing-xl;
+  background: $white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-lg;
+  text-align: center;
+
+  h2 {
+    color: $accent-color;
+    font-size: $font-size-xl;
+    font-weight: 700;
+    margin-bottom: $spacing-lg;
+  }
+
+  .login-form {
+    .form-group {
+      margin-bottom: $spacing-md;
+      text-align: left;
+
+      label {
+        display: block;
+        color: $text-dark;
+        font-weight: 600;
+        margin-bottom: $spacing-xs;
+        font-size: $font-size-sm;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      input {
+        width: 100%;
+        padding: $spacing-md;
+        border: 2px solid $medium-gray;
+        border-radius: $border-radius;
+        font-size: $font-size-base;
+        transition: all $transition-normal;
+
+        &:focus {
+          outline: none;
+          border-color: $primary-color;
+          box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+        }
+      }
+    }
+
+    .login-button {
+      width: 100%;
+      padding: $spacing-md;
+      background: $gradient-primary;
+      color: $white;
+      border: none;
+      border-radius: $border-radius;
+      font-size: $font-size-base;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all $transition-normal;
+      margin-top: $spacing-md;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+
+    .error-message {
+      color: $danger-color;
+      font-size: $font-size-sm;
+      margin-top: $spacing-sm;
+      font-weight: 600;
+    }
+  }
+}
+
+.admin-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-md;
+
+  .admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $spacing-xl;
+    padding: $spacing-lg;
+    background: $white;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-sm;
+
+    h1 {
+      color: $accent-color;
+      font-size: $font-size-xxl;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .admin-actions {
+      display: flex;
+      gap: $spacing-md;
+
+      .admin-button {
+        padding: $spacing-sm $spacing-md;
+        border: none;
+        border-radius: $border-radius;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all $transition-normal;
+        font-size: $font-size-sm;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+
+        &.btn-primary {
+          background: $gradient-primary;
+          color: $white;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: $shadow-sm;
+          }
+        }
+
+        &.btn-secondary {
+          background: $white;
+          color: $secondary-color;
+          border: 2px solid $secondary-color;
+
+          &:hover {
+            background: $secondary-color;
+            color: $white;
+          }
+        }
+
+        &.btn-danger {
+          background: $danger-color;
+          color: $white;
+
+          &:hover {
+            background: darken($danger-color, 10%);
+          }
+        }
+      }
+    }
+  }
+
+  .admin-tabs {
+    display: flex;
+    margin-bottom: $spacing-lg;
+    background: $white;
+    border-radius: $border-radius;
+    box-shadow: $shadow-sm;
+    overflow: hidden;
+
+    .tab-button {
+      flex: 1;
+      padding: $spacing-md;
+      border: none;
+      background: $light-gray;
+      color: $text-light;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all $transition-normal;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+
+      &.active {
+        background: $primary-color;
+        color: $white;
+      }
+
+      &:hover {
+        background: lighten($primary-color, 40%);
+      }
+    }
+  }
+
+  .admin-content {
+    background: $white;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-sm;
+    padding: $spacing-xl;
+  }
+}
+
+.questions-list {
+  .question-item {
+    border: 2px solid $medium-gray;
+    border-radius: $border-radius;
+    margin-bottom: $spacing-md;
+    background: $white;
+    transition: all $transition-normal;
+
+    &:hover {
+      border-color: $primary-color;
+      box-shadow: $shadow-sm;
+    }
+
+    .question-header {
+      padding: $spacing-md;
+      background: $light-gray;
+      border-bottom: 1px solid $medium-gray;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .question-info {
+        .question-text {
+          font-weight: 600;
+          color: $text-dark;
+          margin-bottom: $spacing-xs;
+        }
+
+        .question-meta {
+          font-size: $font-size-sm;
+          color: $text-light;
+
+          .topic-badge {
+            background: $secondary-color;
+            color: $white;
+            padding: 2px $spacing-xs;
+            border-radius: $border-radius-sm;
+            font-weight: 600;
+            margin-right: $spacing-xs;
+          }
+        }
+      }
+
+      .question-actions {
+        display: flex;
+        gap: $spacing-sm;
+
+        button {
+          padding: $spacing-xs $spacing-sm;
+          border: none;
+          border-radius: $border-radius-sm;
+          font-size: $font-size-sm;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all $transition-fast;
+
+          &.edit-btn {
+            background: $primary-color;
+            color: $white;
+
+            &:hover {
+              background: darken($primary-color, 10%);
+            }
+          }
+
+          &.delete-btn {
+            background: $danger-color;
+            color: $white;
+
+            &:hover {
+              background: darken($danger-color, 10%);
+            }
+          }
+        }
+      }
+    }
+
+    .question-answers {
+      padding: $spacing-md;
+
+      .answer-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: $spacing-sm;
+        margin-bottom: $spacing-xs;
+        border-radius: $border-radius-sm;
+        background: $light-gray;
+
+        .answer-text {
+          flex: 1;
+        }
+
+        .answer-weight {
+          background: $primary-color;
+          color: $white;
+          padding: 2px $spacing-xs;
+          border-radius: $border-radius-sm;
+          font-weight: 600;
+          font-size: $font-size-sm;
+        }
+      }
+    }
+  }
+}
