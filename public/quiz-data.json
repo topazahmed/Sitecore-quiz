@@ -1,0 +1,355 @@
+{
+  "quizMetadata": {
+    "title": "Professional Work Style Assessment",
+    "description": "Discover your ideal work style and communication preferences",
+    "version": "1.0",
+    "createdAt": "2025-10-11T00:00:00.000Z",
+    "updatedAt": "2025-10-11T00:00:00.000Z"
+  },
+  "questions": [
+    {
+      "id": "q1_communication",
+      "text": "How do you prefer to communicate with your team?",
+      "topic": "Communication",
+      "type": "single",
+      "required": true,
+      "order": 1,
+      "metadata": {
+        "createdAt": "2025-10-11T00:00:00.000Z",
+        "updatedAt": "2025-10-11T00:00:00.000Z",
+        "category": "work_style",
+        "difficulty": "easy"
+      },
+      "answers": [
+        {
+          "id": "q1_a1",
+          "text": "Face-to-face meetings and direct conversations",
+          "weight": 4,
+          "topic": "Communication",
+          "backgroundColor": "#e3f2fd",
+          "textColor": "#1565c0",
+          "answerType": "preference",
+          "description": "Direct, personal communication style"
+        },
+        {
+          "id": "q1_a2", 
+          "text": "Video calls and virtual meetings",
+          "weight": 3,
+          "topic": "Communication",
+          "backgroundColor": "#f3e5f5",
+          "textColor": "#7b1fa2",
+          "answerType": "preference",
+          "description": "Digital but visual communication"
+        },
+        {
+          "id": "q1_a3",
+          "text": "Instant messaging and chat platforms",
+          "weight": 2,
+          "topic": "Communication",
+          "backgroundColor": "#e8f5e8",
+          "textColor": "#2e7d32",
+          "answerType": "preference", 
+          "description": "Quick, text-based communication"
+        },
+        {
+          "id": "q1_a4",
+          "text": "Email and formal written communication",
+          "weight": 1,
+          "topic": "Communication",
+          "backgroundColor": "#fff3e0",
+          "textColor": "#ef6c00",
+          "answerType": "preference",
+          "description": "Formal, documented communication"
+        }
+      ]
+    },
+    {
+      "id": "q2_motivation",
+      "text": "What motivates you most at work?",
+      "topic": "Motivation",
+      "type": "single",
+      "required": true,
+      "order": 2,
+      "metadata": {
+        "createdAt": "2025-10-11T00:00:00.000Z",
+        "updatedAt": "2025-10-11T00:00:00.000Z",
+        "category": "motivation",
+        "difficulty": "medium"
+      },
+      "answers": [
+        {
+          "id": "q2_a1",
+          "text": "Recognition and public praise for achievements",
+          "weight": 4,
+          "topic": "Motivation",
+          "backgroundColor": "#fce4ec",
+          "textColor": "#c2185b",
+          "answerType": "motivation_factor",
+          "description": "Values acknowledgment and visibility"
+        },
+        {
+          "id": "q2_a2",
+          "text": "Financial rewards and performance bonuses",
+          "weight": 3,
+          "topic": "Motivation",
+          "backgroundColor": "#e0f2f1",
+          "textColor": "#00695c",
+          "answerType": "motivation_factor",
+          "description": "Driven by monetary incentives"
+        },
+        {
+          "id": "q2_a3",
+          "text": "Learning new skills and professional development",
+          "weight": 5,
+          "topic": "Motivation",
+          "backgroundColor": "#e1f5fe",
+          "textColor": "#0277bd",
+          "answerType": "motivation_factor",
+          "description": "Growth and learning oriented"
+        },
+        {
+          "id": "q2_a4",
+          "text": "Work-life balance and flexible schedules",
+          "weight": 2,
+          "topic": "Motivation",
+          "backgroundColor": "#f9fbe7",
+          "textColor": "#689f38",
+          "answerType": "motivation_factor",
+          "description": "Values personal time and flexibility"
+        },
+        {
+          "id": "q2_a5",
+          "text": "Career advancement and leadership opportunities",
+          "weight": 4,
+          "topic": "Motivation",
+          "backgroundColor": "#fff8e1",
+          "textColor": "#f57c00",
+          "answerType": "motivation_factor",
+          "description": "Ambitious and leadership focused"
+        }
+      ]
+    },
+    {
+      "id": "q3_stress_management",
+      "text": "How do you handle stressful situations at work?",
+      "topic": "Stress Management",
+      "type": "single",
+      "required": true,
+      "order": 3,
+      "metadata": {
+        "createdAt": "2025-10-11T00:00:00.000Z",
+        "updatedAt": "2025-10-11T00:00:00.000Z",
+        "category": "stress_response",
+        "difficulty": "medium"
+      },
+      "answers": [
+        {
+          "id": "q3_a1",
+          "text": "Take breaks and step away to recharge",
+          "weight": 3,
+          "topic": "Stress Management",
+          "backgroundColor": "#e8eaf6",
+          "textColor": "#3f51b5",
+          "answerType": "coping_strategy",
+          "description": "Restorative approach to stress"
+        },
+        {
+          "id": "q3_a2",
+          "text": "Work through it immediately with focus",
+          "weight": 5,
+          "topic": "Stress Management",
+          "backgroundColor": "#ffebee",
+          "textColor": "#d32f2f",
+          "answerType": "coping_strategy",
+          "description": "Direct action under pressure"
+        },
+        {
+          "id": "q3_a3",
+          "text": "Ask for help and collaborate with colleagues",
+          "weight": 4,
+          "topic": "Stress Management",
+          "backgroundColor": "#e0f7fa",
+          "textColor": "#0097a7",
+          "answerType": "coping_strategy",
+          "description": "Collaborative problem solving"
+        },
+        {
+          "id": "q3_a4",
+          "text": "Plan and organize tasks to reduce overwhelm",
+          "weight": 4,
+          "topic": "Stress Management",
+          "backgroundColor": "#f3e5f5",
+          "textColor": "#7b1fa2",
+          "answerType": "coping_strategy",
+          "description": "Systematic approach to stress"
+        }
+      ]
+    },
+    {
+      "id": "q4_work_environment",
+      "text": "What type of work environment helps you thrive?",
+      "topic": "Work Environment",
+      "type": "single",
+      "required": true,
+      "order": 4,
+      "metadata": {
+        "createdAt": "2025-10-11T00:00:00.000Z",
+        "updatedAt": "2025-10-11T00:00:00.000Z",
+        "category": "environment",
+        "difficulty": "easy"
+      },
+      "answers": [
+        {
+          "id": "q4_a1",
+          "text": "Quiet and focused individual workspace",
+          "weight": 3,
+          "topic": "Work Environment",
+          "backgroundColor": "#f1f8e9",
+          "textColor": "#558b2f",
+          "answerType": "environment_preference",
+          "description": "Prefers minimal distractions"
+        },
+        {
+          "id": "q4_a2",
+          "text": "Collaborative and social open office",
+          "weight": 4,
+          "topic": "Work Environment",
+          "backgroundColor": "#fff3e0",
+          "textColor": "#ff8f00",
+          "answerType": "environment_preference",
+          "description": "Thrives on team interaction"
+        },
+        {
+          "id": "q4_a3",
+          "text": "Fast-paced and dynamic environment",
+          "weight": 5,
+          "topic": "Work Environment",
+          "backgroundColor": "#fce4ec",
+          "textColor": "#e91e63",
+          "answerType": "environment_preference",
+          "description": "Energized by constant change"
+        },
+        {
+          "id": "q4_a4",
+          "text": "Structured and well-organized space",
+          "weight": 2,
+          "topic": "Work Environment",
+          "backgroundColor": "#e3f2fd",
+          "textColor": "#1976d2",
+          "answerType": "environment_preference",
+          "description": "Values order and predictability"
+        }
+      ]
+    },
+    {
+      "id": "q5_problem_solving",
+      "text": "How do you approach complex problem-solving?",
+      "topic": "Problem Solving",
+      "type": "single",
+      "required": true,
+      "order": 5,
+      "metadata": {
+        "createdAt": "2025-10-11T00:00:00.000Z",
+        "updatedAt": "2025-10-11T00:00:00.000Z",
+        "category": "problem_solving",
+        "difficulty": "hard"
+      },
+      "answers": [
+        {
+          "id": "q5_a1",
+          "text": "Research thoroughly and analyze all available data",
+          "weight": 4,
+          "topic": "Problem Solving",
+          "backgroundColor": "#e8f5e8",
+          "textColor": "#2e7d32",
+          "answerType": "problem_solving_style",
+          "description": "Data-driven analytical approach"
+        },
+        {
+          "id": "q5_a2",
+          "text": "Brainstorm with others and gather multiple perspectives",
+          "weight": 3,
+          "topic": "Problem Solving",
+          "backgroundColor": "#f3e5f5",
+          "textColor": "#8e24aa",
+          "answerType": "problem_solving_style",
+          "description": "Collaborative ideation method"
+        },
+        {
+          "id": "q5_a3",
+          "text": "Try different solutions quickly and iterate",
+          "weight": 5,
+          "topic": "Problem Solving",
+          "backgroundColor": "#ffebee",
+          "textColor": "#d32f2f",
+          "answerType": "problem_solving_style",
+          "description": "Experimental rapid testing"
+        },
+        {
+          "id": "q5_a4",
+          "text": "Follow established procedures and best practices",
+          "weight": 2,
+          "topic": "Problem Solving",
+          "backgroundColor": "#e1f5fe",
+          "textColor": "#0288d1",
+          "answerType": "problem_solving_style",
+          "description": "Systematic proven methods"
+        }
+      ]
+    }
+  ],
+  "scoring": {
+    "algorithm": "weighted_average",
+    "maxScore": 25,
+    "categories": {
+      "Communication": {
+        "weight": 1.0,
+        "description": "How you interact and share information"
+      },
+      "Motivation": {
+        "weight": 1.2,
+        "description": "What drives your performance and satisfaction"
+      },
+      "Stress Management": {
+        "weight": 1.1,
+        "description": "Your approach to handling pressure"
+      },
+      "Work Environment": {
+        "weight": 1.0,
+        "description": "Your ideal workplace conditions"
+      },
+      "Problem Solving": {
+        "weight": 1.3,
+        "description": "Your method for tackling challenges"
+      }
+    }
+  },
+  "results": {
+    "profiles": {
+      "collaborative_innovator": {
+        "name": "Collaborative Innovator",
+        "description": "You thrive in team environments and excel at creative problem-solving",
+        "scoreRange": [18, 25],
+        "characteristics": ["Team-oriented", "Creative", "Adaptable", "Communication-focused"]
+      },
+      "analytical_specialist": {
+        "name": "Analytical Specialist", 
+        "description": "You prefer structured approaches and data-driven decision making",
+        "scoreRange": [12, 17],
+        "characteristics": ["Detail-oriented", "Systematic", "Research-focused", "Independent"]
+      },
+      "balanced_professional": {
+        "name": "Balanced Professional",
+        "description": "You demonstrate flexibility across different work styles and situations",
+        "scoreRange": [8, 11],
+        "characteristics": ["Adaptable", "Well-rounded", "Flexible", "Steady"]
+      },
+      "structured_achiever": {
+        "name": "Structured Achiever",
+        "description": "You excel in organized environments with clear processes and goals",
+        "scoreRange": [5, 7],
+        "characteristics": ["Organized", "Process-oriented", "Goal-focused", "Consistent"]
+      }
+    }
+  }
+}

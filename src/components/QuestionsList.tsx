@@ -5,23 +5,31 @@ import '../styles/Admin.scss';
 
 interface QuestionsListProps {
   onEditQuestion: (question: AdminQuestion) => void;
+  refreshTrigger?: number; // Add trigger to force refresh
 }
 
-const QuestionsList: React.FC<QuestionsListProps> = ({ onEditQuestion }) => {
+const QuestionsList: React.FC<QuestionsListProps> = ({ onEditQuestion, refreshTrigger }) => {
   const [questions, setQuestions] = useState<AdminQuestion[]>([]);
-  const adminService = new AdminService();
 
   useEffect(() => {
+    const loadQuestions = () => {
+      const adminService = new AdminService();
+      const allQuestions = adminService.getAllQuestions();
+      setQuestions(allQuestions);
+    };
+    
     loadQuestions();
-  }, []);
+  }, [refreshTrigger]); // Re-run when refreshTrigger changes
 
   const loadQuestions = () => {
+    const adminService = new AdminService();
     const allQuestions = adminService.getAllQuestions();
     setQuestions(allQuestions);
   };
 
   const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this question?')) {
+      const adminService = new AdminService();
       const success = adminService.deleteQuestion(id);
       if (success) {
         loadQuestions();

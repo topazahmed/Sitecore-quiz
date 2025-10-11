@@ -1,5 +1,6 @@
 import { AdminUser, AdminQuestion, QuestionFormData } from '../types/admin';
 import { Question } from '../types/quiz';
+import { QuizDataService } from './QuizDataService';
 
 export class AdminService {
   private readonly ADMIN_CREDENTIALS = {
@@ -9,6 +10,7 @@ export class AdminService {
 
   private readonly STORAGE_KEY = 'quiz_admin_questions';
   private readonly AUTH_KEY = 'quiz_admin_auth';
+  private quizDataService = new QuizDataService();
 
   // Authentication
   login(username: string, password: string): boolean {
@@ -73,6 +75,70 @@ export class AdminService {
     return question;
   }
 
+  // Force reload questions from JSON backend (for admin use)
+  async reloadFromJsonBackend(): Promise<void> {
+    try {
+      const jsonQuestions = await this.quizDataService.getQuizQuestions();
+      
+      // Convert Quiz questions to AdminQuestion format
+      const adminQuestions: AdminQuestion[] = jsonQuestions.map(q => ({
+        id: q.id,
+        text: q.text,
+        topic: q.topic,
+        type: 'single' as const, // Default to single choice
+        answers: q.answers.map(a => ({
+          id: a.id,
+          text: a.text,
+          weight: a.weight,
+          topic: a.topic
+        })),
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }));
+
+      // Replace existing questions with JSON data
+      localStorage.setItem(this.STORAGE_KEY, JSON.stringify(adminQuestions));
+      console.log(`Reloaded ${adminQuestions.length} questions from JSON backend`);
+    } catch (error) {
+      console.error('Failed to reload questions from JSON backend:', error);
+      throw error;
+    }
+  }
+
+  // Initialize admin questions from JSON backend if localStorage is empty
+  async initializeFromJsonBackend(): Promise<void> {
+    const existingQuestions = this.getAllQuestions();
+    
+    // Only load from JSON if no admin questions exist
+    if (existingQuestions.length === 0) {
+      try {
+        const jsonQuestions = await this.quizDataService.getQuizQuestions();
+        
+        // Convert Quiz questions to AdminQuestion format
+        const adminQuestions: AdminQuestion[] = jsonQuestions.map(q => ({
+          id: q.id,
+          text: q.text,
+          topic: q.topic,
+          type: 'single' as const, // Default to single choice
+          answers: q.answers.map(a => ({
+            id: a.id,
+            text: a.text,
+            weight: a.weight,
+            topic: a.topic
+          })),
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }));
+
+        // Save to localStorage
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(adminQuestions));
+        console.log(`Loaded ${adminQuestions.length} questions from JSON backend into admin panel`);
+      } catch (error) {
+        console.error('Failed to load questions from JSON backend:', error);
+      }
+    }
+  }
+
   getAllQuestions(): AdminQuestion[] {
     try {
       const data = localStorage.getItem(this.STORAGE_KEY);
@@ -106,7 +172,36 @@ export class AdminService {
   }
 
   // Convert admin questions to quiz format
-  getQuizQuestions(): Question[] {
+  async getQuizQuestions(): Promise<Question[]> {
+    // First try to get from localStorage (admin-managed questions)
+    const localQuestions = this.getAllQuestions();
+    
+    if (localQuestions.length > 0) {
+      return localQuestions.map(adminQ => ({
+        id: adminQ.id,
+        text: adminQ.text,
+        topic: adminQ.topic,
+        answers: adminQ.answers.map(answer => ({
+          id: answer.id,
+          text: answer.text,
+          weight: answer.weight,
+          topic: answer.topic
+        }))
+      }));
+    }
+
+    // Fallback to JSON backend
+    try {
+      const jsonQuestions = await this.quizDataService.getQuizQuestions();
+      return jsonQuestions;
+    } catch (error) {
+      console.error('Error loading questions from JSON backend:', error);
+      return [];
+    }
+  }
+
+  // Synchronous version for backward compatibility
+  getQuizQuestionsSync(): Question[] {
     return this.getAllQuestions().map(adminQ => ({
       id: adminQ.id,
       text: adminQ.text,

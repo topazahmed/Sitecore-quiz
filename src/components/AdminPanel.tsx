@@ -11,12 +11,27 @@ const AdminPanel: React.FC = () => {
   const [activeTab, setActiveTab] = useState<'questions' | 'settings'>('questions');
   const [editingQuestion, setEditingQuestion] = useState<AdminQuestion | null>(null);
   const [showForm, setShowForm] = useState(false);
-
-  const adminService = new AdminService();
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   useEffect(() => {
-    setIsAuthenticated(adminService.isAuthenticated());
+    const initializeAdmin = async () => {
+      const adminService = new AdminService();
+      setIsAuthenticated(adminService.isAuthenticated());
+      
+      // Initialize admin questions from JSON backend if needed
+      try {
+        await adminService.initializeFromJsonBackend();
+        // Trigger refresh of questions list
+        setRefreshTrigger(prev => prev + 1);
+      } catch (error) {
+        console.error('Failed to initialize from JSON backend:', error);
+      }
+    };
+
+    initializeAdmin();
   }, []);
+
+  const adminService = new AdminService();
 
   const handleLogin = () => {
     setIsAuthenticated(true);
@@ -38,6 +53,8 @@ const AdminPanel: React.FC = () => {
   const handleSaveQuestion = () => {
     setShowForm(false);
     setEditingQuestion(null);
+    // Trigger refresh of questions list
+    setRefreshTrigger(prev => prev + 1);
   };
 
   const handleCancelEdit = () => {
@@ -86,6 +103,20 @@ const AdminPanel: React.FC = () => {
     input.click();
   };
 
+  const handleReloadFromJson = async () => {
+    if (window.confirm('This will replace all current admin questions with data from quiz-data.json. Continue?')) {
+      try {
+        const adminService = new AdminService();
+        await adminService.reloadFromJsonBackend();
+        setRefreshTrigger(prev => prev + 1);
+        alert('Successfully reloaded questions from quiz-data.json!');
+      } catch (error) {
+        alert('Failed to reload from JSON file. Please check the console for details.');
+        console.error('Reload error:', error);
+      }
+    }
+  };
+
   if (!isAuthenticated) {
     return <AdminLogin onLogin={handleLogin} />;
   }
@@ -126,12 +157,31 @@ const AdminPanel: React.FC = () => {
 
           <div className="admin-content">
             {activeTab === 'questions' && (
-              <QuestionsList onEditQuestion={handleEditQuestion} />
+              <QuestionsList 
+                onEditQuestion={handleEditQuestion} 
+                refreshTrigger={refreshTrigger}
+              />
             )}
             
             {activeTab === 'settings' && (
               <div>
                 <h3>Quiz Settings</h3>
+                
+                <div style={{ marginBottom: '24px', padding: '16px', border: '1px solid #ddd', borderRadius: '8px' }}>
+                  <h4>Data Management</h4>
+                  <p>Reload questions from the quiz-data.json file:</p>
+                  <button 
+                    className="btn btn-secondary" 
+                    onClick={handleReloadFromJson}
+                    style={{ marginRight: '12px' }}
+                  >
+                    Reload from JSON
+                  </button>
+                  <small style={{ color: '#666' }}>
+                    This will replace all current admin questions with data from quiz-data.json
+                  </small>
+                </div>
+
                 <p>Quiz configuration options will be available here:</p>
                 <ul>
                   <li>Default question weights</li>

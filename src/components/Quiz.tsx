@@ -4,6 +4,7 @@ import Results from './Results';
 import { quizQuestions } from '../data/questions';
 import { QuizService } from '../services/QuizService';
 import { AdminService } from '../services/AdminService';
+import { QuizDataService } from '../services/QuizDataService';
 import { Answer, QuizResult, Question } from '../types/quiz';
 import '../styles/Quiz.scss';
 
@@ -14,16 +15,54 @@ const Quiz: React.FC = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Load questions on component mount
   useEffect(() => {
-    const adminService = new AdminService();
-    const adminQuestions = adminService.getQuizQuestions();
-    if (adminQuestions.length > 0) {
-      setQuestions(adminQuestions);
-    } else {
-      setQuestions(quizQuestions); // Fallback to default questions
-    }
+    const loadQuestions = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        // Try to load from JSON file first
+        const quizDataService = new QuizDataService();
+        const jsonQuestions = await quizDataService.getQuizQuestions();
+        if (jsonQuestions.length > 0) {
+          setQuestions(jsonQuestions);
+        } else {
+          // Fallback to admin questions
+          const adminService = new AdminService();
+          const adminQuestions = await adminService.getQuizQuestions();
+          if (adminQuestions.length > 0) {
+            setQuestions(adminQuestions);
+          } else {
+            // Final fallback to default questions
+            setQuestions(quizQuestions);
+          }
+        }
+      } catch (err) {
+        console.error('Error loading questions:', err);
+        setError('Failed to load quiz questions');
+        
+        // Fallback to default questions on error
+        try {
+          const adminService = new AdminService();
+          const adminQuestions = await adminService.getQuizQuestions();
+          if (adminQuestions.length > 0) {
+            setQuestions(adminQuestions);
+          } else {
+            setQuestions(quizQuestions);
+          }
+        } catch {
+          setQuestions(quizQuestions);
+        }
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadQuestions();
   }, []);
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -76,12 +115,31 @@ const Quiz: React.FC = () => {
   const progress = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   // Don't render until questions are loaded
+  if (isLoading) {
+    return (
+      <div className="quiz-container">
+        <div className="quiz-card">
+          <div style={{ textAlign: 'center', padding: '48px' }}>
+            <div className="loading-spinner"></div>
+            <p>Loading quiz questions...</p>
+            {error && (
+              <div style={{ color: '#ff6600', marginTop: '16px' }}>
+                <p>⚠️ {error}</p>
+                <p>Loading from fallback source...</p>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (questions.length === 0) {
     return (
       <div className="quiz-container">
         <div className="quiz-card">
           <div style={{ textAlign: 'center', padding: '48px' }}>
-            <p>Loading quiz questions...</p>
+            <p>No quiz questions available. Please contact an administrator.</p>
           </div>
         </div>
       </div>
